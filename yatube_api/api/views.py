@@ -19,7 +19,7 @@ class PostModelViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     pagination_class = LimitOffsetPagination
-    permission_classes = (IsAuthenticatedOrReadOnly, AuthorOrReadOnly, )
+    permission_classes = (AuthorOrReadOnly, )
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -43,8 +43,7 @@ class CommentViewSet(ModelViewSet):
         """
         post_id = self.kwargs.get('post_pk')
         post = get_object_or_404(Post, pk=post_id)
-        new_queryset = post.comments.all()
-        return new_queryset
+        return post.comments.all()
 
     def perform_create(self, serializer) -> None:
         """Overrided method to create new specific serialized data."""
@@ -74,33 +73,4 @@ class FollowViewSet(ModelViewSet):
         user = self.request.user
         serializer.save(
             user=user
-        )
-
-    def create(self, request, *args, **kwargs):
-        """Overrided method with added extra verifications."""
-        data = request.data
-        user = request.user
-        if 'following' not in data:
-            return Response(
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        following = get_object_or_404(User, username=data.get('following'))
-        if data.get('following') == user.username:
-            return Response(
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        if Follow.objects.filter(
-            user=user,
-            following=following
-        ).exists():
-            return Response(
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(
-            serializer.data, status=status.HTTP_201_CREATED,
-            headers=headers
         )
