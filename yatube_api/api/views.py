@@ -1,9 +1,7 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import filters
-from rest_framework import status
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 from .permissions import AuthorOrReadOnly
@@ -11,7 +9,7 @@ from .serializers import (
     PostSerializer, GroupSerailizer,
     CommentSerializer, FollowSerializer
 )
-from posts.models import Post, User, Group, Follow
+from posts.models import Post, Group, Follow
 
 
 class PostModelViewSet(ModelViewSet):
