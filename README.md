@@ -40,19 +40,13 @@ cd yatube_api
 python manage.py migrate
 ```
 
-5. Загрузите тестовые данные в БД
-
-```BASH
-python manage.py loaddata dump.json
-```
-
-6. Для доступа к админке сайта создайте суперпользователя
+5. Для доступа к админке сайта создайте суперпользователя
 
 ```BASH
 python manage.py createsuperuser
 ```
 
-7. Запустите проект на локальном сервере разработчика
+6. Запустите проект на локальном сервере разработчика
 
 ```BASH
 python manage.py runserver
