@@ -1,35 +1,65 @@
-<h1>Проект API Yatube</h1>
+# Проект API Yatube <img src="https://cdn.mypanel.link/fv2dwk/tlrqq5seo8xf7c91.png" width=48>
 
-[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Tiro+Devanagari+Hindi&size=25&duration=2500&color=2F114D&height=60&lines=%D0%AD%D1%82%D0%BE+%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82+%D0%B4%D0%BB%D1%8F+%D0%BF%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B8;API+%D1%81%D0%B5%D1%80%D0%B2%D0%B8%D1%81%D0%B0+Yatube.)](https://git.io/typing-svg)
+Реализация API для для сервиса *Yatube*
 
-<h2>Как запустить проект:</h2>
+Данный проект реализован на связке **Django + Django REST Framework** и предоставляет открытые **API** методы для работы с сервисом.
 
-Клонировать репозиторий и перейти в него в командной строке:
+Детали реализации:
+* JWT авторизация, организованныя с помощью приложения **djoser** и встроенного пакеты *rest_framework_simplejwt.authentication*
+* Описание моделей БД и описание поведения сериализаторов данных на основе этих моделей (**DRF**)
+* Роут запросов с помощью объекта **DefaultRouter** модуля *rest_framework.routers*
+* Описание пермишенов
 
-<blockquote>git clone https://github.com/Ferdinand-I/api_final_yatube.git<br>
-cd api_final_yatube</blockquote>
+Чтобы запустить проект локально:
 
-Cоздать и активировать виртуальное окружение:
+1. Клонируйте репозиторий себе на компьютер, находясь в директории, откуда вы хотите в будущем запускать проект (в примере испоьзуется ссылка для подключения с помощью протокола **SSH** в консоли **BASH** для **WINDOWS**)
 
-<blockquote>python -m venv venv<br>
-source venv/Scripts/activate<br>
-</blockquote>
+```BASH
+git clone git@github.com:Ferdinand-I/api_final_yatube_django_rest.git
+```
 
-Установить зависимости из файла requirements.txt:
+2. Создайте и активируйте виртуальное окружение (в примере используется утилита **venv**), перейдите в директорию проекта
 
-<blockquote>
-python -m pip install --upgrade pip<br>
+```BASH
+python -m venv venv
+source venv/Scripts/activate
+cd api_final_yatube_django_rest
+```
+
+3. Обновите **PIP** и установите зависимости **requirements.txt**
+
+```BASH
+python -m pip install --upgrade pip
 pip install -r requirements.txt
-</blockquote>
+```
 
-Выполнить миграции:
+4. Перейдите в корневую директорию джанго проекта и сделайте миграции
 
-<blockquote>
+```BASH
+cd yatube_api
 python manage.py migrate
-</blockquote>
+```
 
-Запустить проект:
+5. Загрузите тестовые данные в БД
 
-<blockquote>
+```BASH
+python manage.py loaddata dump.json
+```
+
+6. Для доступа к админке сайта создайте суперпользователя
+
+```BASH
+python manage.py createsuperuser
+```
+
+7. Запустите проект на локальном сервере разработчика
+
+```BASH
 python manage.py runserver
-</blockquote>
+```
+
+Корень API приложения будет доступен по <a href="http://127.0.0.1:8000/api/v1/">этому</a> адресу
+
+Админка будет доступна <a href="http://127.0.0.1:8000/admin/">здесь</a>
+
+<a href="http://127.0.0.1:8000/redoc/">Документация</a> с описанием доступных методов
